@@ -1,3 +1,3 @@
-# Bunk
+# Stage Manager
 
-Bunk is an app for summer camps to manage campers, parents, staff and camp operations. 
+Stage Manager is an app that provides, producers, general management and company management of live performance enterprise to manage operations, finance and artistic needs of entertainment productions
