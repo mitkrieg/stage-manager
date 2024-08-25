@@ -1,5 +1,5 @@
 import os
-import uuid
+from uuid import uuid4
 from sqlalchemy import (
     Column,
     String,
@@ -10,7 +10,8 @@ from sqlalchemy import (
     Date,
     DateTime,
     null,
-    ARRAY
+    ARRAY,
+    text
 )
 from sqlalchemy.dialects.postgresql import UUID
 from flask_sqlalchemy import SQLAlchemy
@@ -50,7 +51,7 @@ class StageManagerModel(db.Model):
 class Venue(StageManagerModel):
     __tablename__ = "venues"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(UUID(as_uuid=True),primary_key=True,server_default=uuid4)
     name = Column(String, nullable=False)
     capacity = Column(Integer, nullable=False)
     style = Column(String, nullable=False)
@@ -73,7 +74,7 @@ class Venue(StageManagerModel):
 class Show(StageManagerModel):
     __tablename__ = "shows"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(UUID(as_uuid=True),primary_key=True,server_default=uuid4)
     name = Column(String, nullable=False)
     rehersals_begin = Column(Date)
     previews_begin = Column(Date)
@@ -90,7 +91,7 @@ class Show(StageManagerModel):
 class Person(StageManagerModel):
     __tablename__ = "persons"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(UUID(as_uuid=True),primary_key=True,default=uuid4())
     fist_name = Column(String, nullable=False)
     last_name = Column(String, nullable=False)
     billed_as = Column(String, nullable=False)

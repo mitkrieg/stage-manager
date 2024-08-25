@@ -33,10 +33,55 @@ def create_app():
             {
                 "success": True,
                 "venues": current_page,
-                "total_num_bikes": len(venues),
+                "total_num_venues": len(venues),
                 "page": request.args.get("page", 1, type=int),
             }
         )
+
+    @app.route("/venues", methods=["POST"])
+    def create_venue():
+        print('working')
+        body = request.get_json()
+
+        try:
+            name = body.get("name",None)
+            capacity = body.get('capacity',None)
+            style = body.get('style',None)
+
+            print(name,capacity,style)
+
+            
+
+            venue = Venue(
+                name=name,
+                capacity=capacity,
+                style=style
+            )
+
+            print(venue)
+
+            venue.insert()
+
+            print('returning')
+
+            return jsonify({
+                "success":True,
+                "created_venue_id":venue.id
+            })
+        except Exception as e:
+            print(e)
+            abort(400)
+
+    @app.errorhandler(400)
+    def bad_request(error):
+        return jsonify({
+                "success":False,
+                "error":400
+            })
+        
+
+
+        
 
     return app
 
